@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Dork Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .dork-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .dork-list li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Google Dork Generator</h1>
+    <p>Enter the domain name and click "Generate Dorks" to create a list of Google dorks to search for sensitive information.</p>
+    
+    <input type="text" id="domain" placeholder="Enter domain (e.g., example.com)" />
+    <button onclick="generateDorks()">Generate Dorks</button>
+
+    <ul id="dorkList" class="dork-list"></ul>
+</div>
+
+<script>
+    function generateDorks() {
+        const domain = document.getElementById("domain").value.trim();
+        const dorkListElement = document.getElementById("dorkList");
+        dorkListElement.innerHTML = ''; // Clear previous results
+
+        if (domain) {
+            const dorksTemplate = [
+                `"INTERNAL USE ONLY" site:${domain}`,
+                `"PRIVATE AND CONFIDENTIAL" site:${domain}`,
+                `"ONLY FOR" site:${domain}`,
+                `"HIGHLY CONFIDENTIAL" site:${domain}`,
+                `"CONFIDENTIAL" site:${domain}`,
+                `"STRICTLY CONFIDENTIAL" site:${domain}`,
+                `"SENSITIVE" site:${domain}`,
+                `"COMPANY SENSITIVE" site:${domain}`,
+                `"PRIVATE ASSET" site:${domain}`,
+                `intitle:"PRIVATE" site:${domain}`,
+                `intitle:"SENSITIVE" site:${domain}`,
+                `intitle:"CONFIDENTIAL" site:${domain}`,
+                `intitle:"SECRET" site:${domain}`,
+                `intitle:"PROPRIETARY" site:${domain}`,
+                `intitle:"FOR INTERNAL USE ONLY" site:${domain}`,
+                `intitle:"COMPANY CONFIDENTIAL" site:${domain}`,
+                `intitle:"EXCLUSIVE" site:${domain}`,
+                `intitle:"NOT FOR PUBLIC" site:${domain}`,
+                `intitle:"RESTRICTED" site:${domain}`,
+                `intitle:"DO NOT DISTRIBUTE" site:${domain}`,
+                `"PRIVATE DOCUMENT" site:${domain}`,
+                `"CONFIDENTIAL DOCUMENT" site:${domain}`,
+                `"SENSITIVE DATA" site:${domain}`,
+                `"FOR INTERNAL USE ONLY" site:${domain}`,
+                `"COMPANY ASSETS" site:${domain}`,
+                `"UNAUTHORIZED ACCESS" site:${domain}`,
+                `"TOP SECRET" site:${domain}`,
+                `"ONLY FOR OFFICIAL USE" site:${domain}`,
+                `"UNAUTHORIZED DISTRIBUTION" site:${domain}`,
+                `"RESTRICTED ACCESS" site:${domain}`,
+                `"FOR INTERNAL AUDIT" site:${domain}`,
+                `"FOR OFFICIAL USE" site:${domain}`,
+                `"DO NOT SHARE" site:${domain}`,
+                `"HIGHLY RESTRICTED" site:${domain}`,
+                `"SECRET KEY" site:${domain}`,
+                `"ENCRYPTED" site:${domain}`,
+                `"DATA LEAK" site:${domain}`,
+                `"PROTECTED DATA" site:${domain}`,
+                `"CONFIDENTIAL INFORMATION" site:${domain}`,
+                `"RESTRICTED INFORMATION" site:${domain}`,
+                `"PRIVATE INFORMATION" site:${domain}`,
+                `"UNAUTHORIZED DISCLOSURE" site:${domain}`,
+                `"EXCLUSIVE ACCESS" site:${domain}`,
+                `"SECURITY BREACH" site:${domain}`,
+                `"COMPANY POLICY" site:${domain}`,
+                `"PERSONAL DATA" site:${domain}`,
+                `"ACCESS LOGS" site:${domain}`,
+                `"DO NOT SHARE" site:${domain}`,
+                `"PRIVATE ASSETS" site:${domain}`,
+                `"SENSITIVE INFORMATION" site:${domain}`,
+                `"COMPANY STRATEGY" site:${domain}`,
+                `"EMPLOYEE DATA" site:${domain}`,
+                `"CONFIDENTIAL PROJECT" site:${domain}`,
+                `"INTERNAL POLICY" site:${domain}`,
+                `"PROJECT CONFIDENTIAL" site:${domain}`,
+                `"CLIENT CONFIDENTIAL" site:${domain}`,
+                `"FOR MANAGEMENT USE" site:${domain}`,
+                `"RESTRICTED MATERIAL" site:${domain}`,
+                `"UNAUTHORIZED" site:${domain}`,
+                `"HIGHLY SENSITIVE" site:${domain}`,
+                `"TOP SECRET DOCUMENT" site:${domain}`,
+                `"SECURE DOCUMENT" site:${domain}`,
+                `"FOR INTERNAL REVIEW" site:${domain}`,
+                `"SECURITY INFORMATION" site:${domain}`,
+                `"PRIVATE REPORT" site:${domain}`,
+                `"FOR OFFICIAL RECORDS" site:${domain}`,
+                `"STRICTLY PRIVATE" site:${domain}`,
+                `"EXCLUSIVE CONTENT" site:${domain}`,
+                `"DOCUMENTS FOR INTERNAL USE" site:${domain}`,
+                `"INTERNAL MEMO" site:${domain}`,
+                `"PRIVATE REPORTS" site:${domain}`,
+                `"EXCLUSIVE DOCUMENTS" site:${domain}`,
+                `"RESTRICTED DOCUMENTS" site:${domain}`,
+                `"CONFIDENTIAL REPORT" site:${domain}`,
+                `"SENSITIVE DOCUMENT" site:${domain}`,
+                `"FOR CEO ONLY" site:${domain}`,
+                `"CONFIDENTIAL EMAILS" site:${domain}`,
+                `"PRIVATE INTERNAL EMAIL" site:${domain}`,
+                `"RESTRICTED ACCESS DOCUMENTS" site:${domain}`,
+                `"PROPRIETARY INFORMATION" site:${domain}`,
+                `"PRIVATE ASSET DOCUMENTS" site:${domain}`,
+                `"SECURITY POLICY" site:${domain}`,
+                `"CONFIDENTIAL REPORTING" site:${domain}`,
+                `"EMPLOYEE PERSONAL DATA" site:${domain}`,
+                `"COMPANY VULNERABILITIES" site:${domain}`,
+                `"ACCESS RESTRICTIONS" site:${domain}`,
+                `"RESTRICTED MATERIALS" site:${domain}`,
+                `"CONFIDENTIAL LOG" site:${domain}`,
+                `"SECURE FILES" site:${domain}`,
+                `"COMPANY BLUEPRINTS" site:${domain}`,
+                `"PROJECTS UNDER DEVELOPMENT" site:${domain}`,
+                `"PRIVATE ASSET INFORMATION" site:${domain}`,
+                `"SECURITY MEASURES" site:${domain}`,
+                `"EXCLUSIVE PROJECTS" site:${domain}`,
+                `"FOR INTERNAL USE ONLY DOCUMENTS" site:${domain}`,
+                `"UNAUTHORIZED DISCLOSURE" site:${domain}`,
+                `"TOP SECRET INFORMATION" site:${domain}`,
+                `"FOR EXECUTIVES ONLY" site:${domain}`,
+                `"RESTRICTED AREA" site:${domain}`,
+                `"CONFIDENTIAL COMMUNICATION" site:${domain}`,
+                `"SECURITY-RELATED INFORMATION" site:${domain}`,
+                `"FOR REVIEW ONLY" site:${domain}`,
+                `"FOR HR ONLY" site:${domain}`,
+                `"RESTRICTED DATABASE" site:${domain}`,
+                `"PRIVATE COMPANY DATA" site:${domain}`,
+                `"CLASSIFIED DOCUMENTS" site:${domain}`,
+                `"CLIENT DATA" site:${domain}`,
+                `"PRIVATE CLIENT INFORMATION" site:${domain}`,
+                `"CENSORED INFORMATION" site:${domain}`,
+                `"CONFIDENTIAL CODE" site:${domain}`,
+                `"COMPANY SECURITY CODE" site:${domain}`,
+                `"RESTRICTED CODE" site:${domain}`,
+                `"PRIVATE SOFTWARE CODE" site:${domain}`,
+                `"SECRET CONFIGURATION" site:${domain}`,
+                `"PROPRIETARY CODE" site:${domain}`,
+                `"CONFIDENTIAL CONFIGURATION" site:${domain}`
+            ];
+
+            // Loop through the dorks template and create the corresponding dork links
+            dorksTemplate.forEach(dork => {
+                const listItem = document.createElement("li");
+                const link = document.createElement("a");
+                link.href = `https://www.google.com/search?q=${encodeURIComponent(dork)}`;
+                link.target = "_blank";
+                link.textContent = dork;
+                listItem.appendChild(link);
+                dorkListElement.appendChild(listItem);
+            });
+        } else {
+            alert("Please enter a valid domain.");
+        }
+    }
+</script>
+
+</body>
+</html>
