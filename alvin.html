@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Search Query Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        input, button {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+        }
+        .output a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .output a:hover {
+            text-decoration: underline;
+        }
+        .search-engines {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .search-engines div {
+            flex-basis: 30%;
+            padding: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .search-engines a {
+            color: #333;
+        }
+        .clicked {
+            color: white;
+            background-color: #4CAF50;
+        }
+        .search-query-links {
+            margin-top: 20px;
+        }
+        .search-query-links a {
+            display: block;
+            margin-bottom: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .search-query-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Domain Search Query Generator</h1>
+
+<label for="domainName">Enter Domain Name:</label>
+<input type="text" id="domainName" placeholder="example.com">
+
+<button onclick="generateQuery()">Generate Search Query</button>
+
+<div class="output" id="output"></div>
+
+<div class="search-engines" id="searchEngines">
+    <div>
+        <a href="#" id="googleLink" onclick="changeColor('google')">Google</a>
+    </div>
+    <div>
+        <a href="#" id="bingLink" onclick="changeColor('bing')">Bing</a>
+    </div>
+    <div>
+        <a href="#" id="baiduLink" onclick="changeColor('baidu')">Baidu</a>
+    </div>
+    <div>
+        <a href="#" id="yandexLink" onclick="changeColor('yandex')">Yandex</a>
+    </div>
+    <div>
+        <a href="#" id="duckDuckGoLink" onclick="changeColor('duckDuckGo')">DuckDuckGo</a>
+    </div>
+    <div>
+        <a href="#" id="yahooLink" onclick="changeColor('yahoo')">Yahoo</a>
+    </div>
+    <div>
+        <a href="#" id="ecosiaLink" onclick="changeColor('ecosia')">Ecosia</a>
+    </div>
+</div>
+
+<div class="search-query-links" id="searchQueryLinks"></div>
+
+<script>
+    // Generate the search query based on the single domain input
+    function generateQuery() {
+        const domainName = document.getElementById('domainName').value.trim();
+
+        if (domainName === '') {
+            alert('Please enter a domain name.');
+            return;
+        }
+
+        // Prepare the file extension list
+        const extensions = [
+            'doc', 'docx', 'odt', 'pdf', 'rtf', 'ppt', 'pptx', 'csv', 'xls', 'xlsx', 
+            'txt', 'xml', 'json', 'zip', 'rar', 'md', 'log', 'bak', 'conf', 'sql', 
+            'tar.gz', 'tgz', '7z', 'cache', 'secret', 'db', 'backup', 'yml', 'gz', 
+            'config', 'yaml', 'md5', 'exe', 'dll', 'bin', 'ini', 'bat', 'sh', 'tar', 
+            'deb', 'rpm', 'iso', 'img', 'apk', 'msi', 'dmg', 'tmp', 'crt', 'pem', 'key', 
+            'pub', 'asc'
+        ];
+
+        // Create the query string for the domain
+        const queryString = `site:*.${domainName} (ext:${extensions.join(' OR ext:')})`;
+
+        // Create the search URLs for multiple search engines
+        const searchURLGoogle = `https://www.google.com/search?q=${encodeURIComponent(queryString)}`;
+        const searchURLBing = `https://www.bing.com/search?q=${encodeURIComponent(queryString)}`;
+        const searchURLBaidu = `https://www.baidu.com/s?wd=${encodeURIComponent(queryString)}`;
+        const searchURLYandex = `https://yandex.com/search/?text=${encodeURIComponent(queryString)}`;
+        const searchURLDuckDuckGo = `https://duckduckgo.com/?q=${encodeURIComponent(queryString)}`;
+        const searchURLYahoo = `https://search.yahoo.com/search?p=${encodeURIComponent(queryString)}`;
+        const searchURLEcosia = `https://www.ecosia.org/search?q=${encodeURIComponent(queryString)}`;
+
+        // Display the result
+        const outputDiv = document.getElementById('output');
+        outputDiv.innerHTML = `
+            <p><strong>Generated Search Query:</strong></p>
+            <pre>${queryString}</pre>
+        `;
+
+        // Show the search engine links
+        const searchQueryLinksDiv = document.getElementById('searchQueryLinks');
+        searchQueryLinksDiv.innerHTML = `
+            <p><strong>Search Engine Queries:</strong></p>
+            <a href="${searchURLGoogle}" target="_blank">Google Query</a>
+            <a href="${searchURLBing}" target="_blank">Bing Query</a>
+            <a href="${searchURLBaidu}" target="_blank">Baidu Query</a>
+            <a href="${searchURLYandex}" target="_blank">Yandex Query</a>
+            <a href="${searchURLDuckDuckGo}" target="_blank">DuckDuckGo Query</a>
+            <a href="${searchURLYahoo}" target="_blank">Yahoo Query</a>
+            <a href="${searchURLEcosia}" target="_blank">Ecosia Query</a>
+        `;
+
+        // Update the search engine links with the generated URLs
+        document.getElementById('googleLink').href = searchURLGoogle;
+        document.getElementById('bingLink').href = searchURLBing;
+        document.getElementById('baiduLink').href = searchURLBaidu;
+        document.getElementById('yandexLink').href = searchURLYandex;
+        document.getElementById('duckDuckGoLink').href = searchURLDuckDuckGo;
+        document.getElementById('yahooLink').href = searchURLYahoo;
+        document.getElementById('ecosiaLink').href = searchURLEcosia;
+    }
+
+    // Change color when a search engine link is clicked
+    function changeColor(searchEngine) {
+        // Reset all links to normal
+        const links = document.querySelectorAll('.search-engines a');
+        links.forEach(link => {
+            link.classList.remove('clicked');
+        });
+
+        // Add 'clicked' class
+        document.getElementById(`${searchEngine}Link`).classList.add('clicked');
+    }
+</script>
+
+</body>
+</html>
